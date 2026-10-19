@@ -19,6 +19,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.SERVER_HOST }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
+          SSH_PORT: "22456"
           TARGET: "/home/admin/public_html"
           SOURCE: "/"
           EXCLUDE: "/.git/, /.github/"
