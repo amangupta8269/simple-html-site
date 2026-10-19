@@ -1,0 +1,843 @@
+/* =========================================================
+ *    Studio — stylesheet
+ *       Organized with @layer for predictable cascade.
+ *          ========================================================= */
+@layer reset, tokens, base, components, layout, utilities;
+
+/* =========================================================
+ *    RESET
+ *       ========================================================= */
+@layer reset {
+	  *,
+	    *::before,
+	      *::after {
+		          margin: 0;
+			      padding: 0;
+			          box-sizing: border-box;
+				    }
+
+				      html {
+					          -webkit-text-size-adjust: 100%;
+						      scroll-behavior: smooth;
+						        }
+
+							  body { min-height: 100dvh; line-height: 1.6; }
+
+							    img, svg, video { display: block; max-width: 100%; }
+							      button, input, select, textarea { font: inherit; color: inherit; }
+							        button { background: none; border: 0; cursor: pointer; }
+								  ul, ol { list-style: none; }
+								    a { color: inherit; text-decoration: none; }
+								      h1, h2, h3, h4 { text-wrap: balance; }
+								        p { text-wrap: pretty; }
+								}
+
+								/* =========================================================
+								 *    TOKENS
+								 *       ========================================================= */
+@layer tokens {
+	  :root {
+		      /* Color — light */
+		      --bg: #faf7f2;
+		          --bg-alpha: rgba(250, 247, 242, 0.85);
+			      --surface: #ffffff;
+			          --surface-alt: #f2ede4;
+				      --ink: #17140f;
+				          --muted: #6b665e;
+					      --accent: #d9531f;
+					          --accent-soft: #ffe6d6;
+						      --border: #e7dfd2;
+						          --border-strong: #d4c9b7;
+							      --success: #16794d;
+
+							          /* Shadows */
+							          --shadow-sm: 0 1px 2px rgba(20, 15, 10, 0.06);
+								      --shadow: 0 8px 24px -12px rgba(20, 15, 10, 0.18);
+								          --shadow-lg: 0 30px 60px -30px rgba(20, 15, 10, 0.28);
+
+									      /* Type */
+									      --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+									          --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+										      --fs-xs: 0.8125rem;
+										          --fs-sm: 0.9375rem;
+											      --fs-base: 1rem;
+											          --fs-lg: 1.125rem;
+												      --fs-xl: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+												          --fs-h2: clamp(2rem, 1.2rem + 3.2vw, 3.5rem);
+													      --fs-h1: clamp(2.75rem, 1.4rem + 5.5vw, 5.5rem);
+
+													          /* Rhythm */
+													          --space-1: 0.25rem;
+														      --space-2: 0.5rem;
+														          --space-3: 0.75rem;
+															      --space-4: 1rem;
+															          --space-6: 1.5rem;
+																      --space-8: 2rem;
+																          --space-12: 3rem;
+																	      --space-16: 4rem;
+																	          --space-24: 6rem;
+																		      --pad-inline: clamp(1.25rem, 4vw, 3rem);
+																		          --section-py: clamp(5rem, 10vw, 8rem);
+
+																			      /* Radius & motion */
+																			      --radius-sm: 8px;
+																			          --radius: 16px;
+																				      --radius-lg: 24px;
+																				          --radius-xl: 32px;
+																					      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+																					          --dur: 0.35s;
+																						    }
+
+																						      [data-theme="dark"] {
+																							          --bg: #0f0e0c;
+																								      --bg-alpha: rgba(15, 14, 12, 0.85);
+																								          --surface: #1a1815;
+																									      --surface-alt: #161412;
+																									          --ink: #f5f0e8;
+																										      --muted: #8a8479;
+																										          --accent: #ff7a45;
+																											      --accent-soft: #2a1810;
+																											          --border: #262320;
+																												      --border-strong: #3a3531;
+																												          --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+																													      --shadow: 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+																													          --shadow-lg: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+																														    }
+																													    }
+
+																													    /* =========================================================
+																													     *    BASE
+																													     *       ========================================================= */
+@layer base {
+	  body {
+		      font-family: var(--font-body);
+		          font-size: var(--fs-base);
+			      color: var(--ink);
+			          background: var(--bg);
+				      -webkit-font-smoothing: antialiased;
+				          -moz-osx-font-smoothing: grayscale;
+					      overflow-x: hidden;
+					          transition: background 0.3s, color 0.3s;
+						    }
+
+						      /* Subtle grain overlay for texture */
+						      body::after {
+							          content: "";
+								      position: fixed;
+								          inset: 0;
+									      pointer-events: none;
+									          z-index: 2;
+										      opacity: 0.035;
+										          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+											    }
+
+											      ::selection { background: var(--accent); color: #fff; }
+
+											        :focus-visible {
+													    outline: 2px solid var(--accent);
+													        outline-offset: 3px;
+														    border-radius: 4px;
+														      }
+
+														        .skip-link {
+																    position: fixed;
+																        top: -100px;
+																	    left: 1rem;
+																	        z-index: 300;
+																		    background: var(--ink);
+																		        color: var(--bg);
+																			    padding: 0.75rem 1rem;
+																			        border-radius: var(--radius-sm);
+																				    transition: top 0.2s;
+																				      }
+																				        .skip-link:focus { top: 1rem; }
+
+																					  em { font-style: italic; color: var(--accent); }
+																				  }
+
+																				  /* =========================================================
+																				   *    COMPONENTS
+																				   *       ========================================================= */
+@layer components {
+
+	  /* ---- Buttons ---- */
+	  .btn {
+		      display: inline-flex;
+		          align-items: center;
+			      gap: 0.5rem;
+			          padding: 0.875rem 1.5rem;
+				      background: var(--ink);
+				          color: var(--bg);
+					      font-weight: 600;
+					          font-size: var(--fs-sm);
+						      line-height: 1.2;
+						          border-radius: 999px;
+							      transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+							        }
+								  .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+								    .btn:active { transform: translateY(0); }
+								      .btn--sm { padding: 0.625rem 1.125rem; font-size: var(--fs-xs); }
+								        .btn--lg {
+										    padding: 1.125rem 2rem;
+										        font-size: var(--fs-base);
+											    background: #fff;
+											        color: var(--accent);
+												  }
+
+												    .link {
+													        display: inline-flex;
+														    align-items: center;
+														        gap: 0.375rem;
+															    font-weight: 500;
+															        color: var(--ink);
+																    border-bottom: 1px solid var(--border-strong);
+																        padding-bottom: 2px;
+																	    transition: color 0.2s, border-color 0.2s;
+																	      }
+																	        .link:hover { color: var(--accent); border-color: var(--accent); }
+
+																		  /* ---- Eyebrow ---- */
+																		  .eyebrow {
+																			      display: inline-flex;
+																			          align-items: center;
+																				      gap: 0.5rem;
+																				          font-size: var(--fs-xs);
+																					      font-weight: 500;
+																					          letter-spacing: 0.12em;
+																						      text-transform: uppercase;
+																						          color: var(--muted);
+																							      margin-bottom: var(--space-4);
+																							        }
+																								  .dot-indicator {
+																									      display: inline-block;
+																									          width: 8px;
+																										      height: 8px;
+																										          border-radius: 50%;
+																											      background: var(--success);
+																											          box-shadow: 0 0 0 0 rgba(22, 121, 77, 0.4);
+																												      animation: pulse 2s infinite;
+																												        }
+																													  @keyframes pulse {
+																														      0%, 100% { box-shadow: 0 0 0 0 rgba(22, 121, 77, 0.4); }
+																														          50%      { box-shadow: 0 0 0 6px rgba(22, 121, 77, 0); }
+																															    }
+
+																															      /* ---- Nav ---- */
+																															      .nav {
+																																          position: fixed;
+																																	      inset: 0 0 auto 0;
+																																	          z-index: 100;
+																																		      display: flex;
+																																		          align-items: center;
+																																			      justify-content: space-between;
+																																			          padding: 1.125rem var(--pad-inline);
+																																				      background: var(--bg-alpha);
+																																				          backdrop-filter: blur(16px) saturate(160%);
+																																					      -webkit-backdrop-filter: blur(16px) saturate(160%);
+																																					          border-bottom: 1px solid transparent;
+																																						      transition: border-color 0.3s;
+																																						        }
+																																							  .nav.scrolled { border-bottom-color: var(--border); }
+
+																																							    .nav__logo {
+																																								        font-family: var(--font-display);
+																																									    font-size: 1.6rem;
+																																									        line-height: 1;
+																																										    letter-spacing: -0.01em;
+																																										      }
+																																										        .nav__logo .dot { color: var(--accent); }
+
+																																											  .nav__list {
+																																												      display: flex;
+																																												          gap: 2.25rem;
+																																													      font-size: var(--fs-sm);
+																																													          font-weight: 500;
+																																														    }
+																																														      .nav__list a {
+																																															          position: relative;
+																																																      color: var(--muted);
+																																																          transition: color 0.2s;
+																																																	    }
+																																																	      .nav__list a:hover,
+																																																	        .nav__list a.active { color: var(--ink); }
+																																																		  .nav__list a.active::after {
+																																																			      content: "";
+																																																			          position: absolute;
+																																																				      left: 0; right: 0; bottom: -8px;
+																																																				          height: 2px;
+																																																					      background: var(--accent);
+																																																					          border-radius: 2px;
+																																																						    }
+
+																																																						      .nav__actions { display: flex; align-items: center; gap: 0.75rem; }
+
+																																																						        .icon-btn {
+																																																								    width: 2.5rem; height: 2.5rem;
+																																																								        display: grid; place-items: center;
+																																																									    border-radius: 50%;
+																																																									        transition: background 0.2s;
+																																																										  }
+																																																										    .icon-btn:hover { background: var(--surface-alt); }
+																																																										      .icon-btn svg { width: 20px; height: 20px; }
+																																																										        [data-theme="light"] .icon-moon { display: none; }
+																																																											  [data-theme="dark"]  .icon-sun  { display: none; }
+
+																																																											    .burger {
+																																																												        display: none;
+																																																													    width: 2.5rem; height: 2.5rem;
+																																																													        padding: 0.7rem;
+																																																														    border-radius: 50%;
+																																																														      }
+																																																														        .burger span {
+																																																																    display: block;
+																																																																        height: 2px;
+																																																																	    background: var(--ink);
+																																																																	        border-radius: 2px;
+																																																																		    transition: transform 0.3s var(--ease);
+																																																																		      }
+																																																																		        .burger span + span { margin-top: 6px; }
+																																																																			  .burger[aria-expanded="true"] span:first-child { transform: translateY(4px) rotate(45deg); }
+																																																																			    .burger[aria-expanded="true"] span:last-child  { transform: translateY(-4px) rotate(-45deg); }
+
+																																																																			      /* ---- Mobile menu ---- */
+																																																																			      .mobile-menu {
+																																																																				          position: fixed;
+																																																																					      inset: 0;
+																																																																					          z-index: 99;
+																																																																						      background: var(--bg);
+																																																																						          padding: 6rem var(--pad-inline) 2rem;
+																																																																							      display: flex;
+																																																																							          flex-direction: column;
+																																																																								      justify-content: space-between;
+																																																																								          opacity: 0;
+																																																																									      visibility: hidden;
+																																																																									          transition: opacity 0.3s, visibility 0.3s;
+																																																																										    }
+																																																																										      .mobile-menu.open { opacity: 1; visibility: visible; }
+																																																																										        .mobile-menu ul { display: flex; flex-direction: column; }
+																																																																											  .mobile-menu a {
+																																																																												      display: block;
+																																																																												          padding: 1rem 0;
+																																																																													      font-family: var(--font-display);
+																																																																													          font-size: clamp(2.25rem, 8vw, 3.25rem);
+																																																																														      line-height: 1;
+																																																																														          border-bottom: 1px solid var(--border);
+																																																																															      transition: color 0.2s, padding-left 0.2s;
+																																																																															        }
+																																																																																  .mobile-menu a:hover { color: var(--accent); padding-left: 0.5rem; }
+																																																																																    .mobile-menu__foot {
+																																																																																	        font-size: var(--fs-sm);
+																																																																																		    color: var(--muted);
+																																																																																		      }
+
+																																																																																		        /* ---- Scroll progress ---- */
+																																																																																		        .scroll-progress {
+																																																																																				    position: fixed;
+																																																																																				        top: 0; left: 0; right: 0;
+																																																																																					    height: 2px;
+																																																																																					        z-index: 200;
+																																																																																						    background: transparent;
+																																																																																						        pointer-events: none;
+																																																																																							  }
+																																																																																							    .scroll-progress span {
+																																																																																								        display: block;
+																																																																																									    height: 100%;
+																																																																																									        width: 0%;
+																																																																																										    background: var(--accent);
+																																																																																										        transition: width 0.1s linear;
+																																																																																											  }
+
+																																																																																											    /* ---- Custom cursor ---- */
+																																																																																											    .cursor {
+																																																																																												        position: fixed;
+																																																																																													    top: 0; left: 0;
+																																																																																													        width: 8px; height: 8px;
+																																																																																														    border-radius: 50%;
+																																																																																														        background: var(--accent);
+																																																																																															    pointer-events: none;
+																																																																																															        z-index: 300;
+																																																																																																    mix-blend-mode: difference;
+																																																																																																        transform: translate(-50%, -50%);
+																																																																																																	    opacity: 0;
+																																																																																																	        transition: opacity 0.3s, width 0.2s, height 0.2s;
+																																																																																																		  }
+																																																																																																		    .cursor.active { opacity: 1; }
+																																																																																																		      .cursor.expanded { width: 32px; height: 32px; opacity: 0.3; }
+																																																																																																		        @media (hover: none), (pointer: coarse) { .cursor { display: none; } }
+
+																																																																																																			  /* ---- Hero composition ---- */
+																																																																																																			  .comp__orb {
+																																																																																																				      position: absolute;
+																																																																																																				          inset: 8% 12% auto auto;
+																																																																																																					      width: 70%;
+																																																																																																					          aspect-ratio: 1;
+																																																																																																						      border-radius: 50%;
+																																																																																																						          background: radial-gradient(circle at 35% 35%, #ffb894, var(--accent) 50%, #a83510);
+																																																																																																							      filter: blur(2px);
+																																																																																																							          animation: orbShift 20s ease-in-out infinite;
+																																																																																																								    }
+																																																																																																								      @keyframes orbShift {
+																																																																																																									          0%, 100% { transform: translate(0, 0) scale(1); }
+																																																																																																										      50%      { transform: translate(-20px, 15px) scale(1.05); }
+																																																																																																										        }
+
+																																																																																																											  .comp__card {
+																																																																																																												      position: absolute;
+																																																																																																												          border-radius: var(--radius-lg);
+																																																																																																													      box-shadow: var(--shadow-lg);
+																																																																																																													        }
+																																																																																																														  .comp__card--back {
+																																																																																																															      inset: 20% 8% 8% 20%;
+																																																																																																															          background: var(--surface-alt);
+																																																																																																																      border: 1px solid var(--border);
+																																																																																																																          transform: rotate(-6deg);
+																																																																																																																	    }
+																																																																																																																	      .comp__card--front {
+																																																																																																																		          inset: 25% 15% 15% 10%;
+																																																																																																																			      background: var(--surface);
+																																																																																																																			          border: 1px solid var(--border);
+																																																																																																																				      padding: 1.75rem;
+																																																																																																																				          display: flex;
+																																																																																																																					      flex-direction: column;
+																																																																																																																					          gap: 0.75rem;
+																																																																																																																						      transform: rotate(2deg);
+																																																																																																																						          transition: transform 0.6s var(--ease);
+																																																																																																																							    }
+																																																																																																																							      .hero__visual:hover .comp__card--front { transform: rotate(0deg) translateY(-6px); }
+
+																																																																																																																							        .comp__card-tag {
+																																																																																																																									    font-size: var(--fs-xs);
+																																																																																																																									        color: var(--muted);
+																																																																																																																										    letter-spacing: 0.08em;
+																																																																																																																										        text-transform: uppercase;
+																																																																																																																											  }
+																																																																																																																											    .comp__card-title {
+																																																																																																																												        font-family: var(--font-display);
+																																																																																																																													    font-size: clamp(1.5rem, 3vw, 2.25rem);
+																																																																																																																													        line-height: 1.05;
+																																																																																																																														    margin-bottom: auto;
+																																																																																																																														      }
+																																																																																																																														        .comp__card-lines span {
+																																																																																																																																    display: block;
+																																																																																																																																        height: 6px;
+																																																																																																																																	    border-radius: 3px;
+																																																																																																																																	        background: var(--border);
+																																																																																																																																		    margin-bottom: 6px;
+																																																																																																																																		      }
+																																																																																																																																		        .comp__card-lines span:nth-child(1) { width: 80%; }
+																																																																																																																																			  .comp__card-lines span:nth-child(2) { width: 60%; }
+																																																																																																																																			    .comp__card-lines span:nth-child(3) { width: 40%; }
+
+																																																																																																																																			      .comp__badge {
+																																																																																																																																				          position: absolute;
+																																																																																																																																					      display: flex;
+																																																																																																																																					          flex-direction: column;
+																																																																																																																																						      gap: 0.25rem;
+																																																																																																																																						          background: var(--surface);
+																																																																																																																																							      border: 1px solid var(--border);
+																																																																																																																																							          border-radius: var(--radius);
+																																																																																																																																								      padding: 0.75rem 1rem;
+																																																																																																																																								          box-shadow: var(--shadow);
+																																																																																																																																									      animation: float 6s ease-in-out infinite;
+																																																																																																																																									        }
+																																																																																																																																										  .comp__badge--top { top: 4%; left: 0; animation-delay: -1s; }
+																																																																																																																																										    .comp__badge--bottom { bottom: 4%; right: 0; animation-delay: -3s; }
+																																																																																																																																										      .comp__badge-stars { color: var(--accent); font-size: 0.75rem; letter-spacing: 2px; }
+																																																																																																																																										        .comp__badge-text { font-size: var(--fs-xs); color: var(--muted); }
+																																																																																																																																											  .comp__badge-num {
+																																																																																																																																												      font-family: var(--font-display);
+																																																																																																																																												          font-size: 1.5rem;
+																																																																																																																																													      line-height: 1;
+																																																																																																																																													          color: var(--accent);
+																																																																																																																																														    }
+
+																																																																																																																																														      @keyframes float {
+																																																																																																																																															          0%, 100% { transform: translateY(0); }
+																																																																																																																																																      50%      { transform: translateY(-10px); }
+																																																																																																																																																        }
+
+																																																																																																																																																	  /* ---- Marquee ---- */
+																																																																																																																																																	  .marquee {
+																																																																																																																																																		      overflow: hidden;
+																																																																																																																																																		          padding: 1.75rem 0;
+																																																																																																																																																			      border-block: 1px solid var(--border);
+																																																																																																																																																			          background: var(--surface-alt);
+																																																																																																																																																				    }
+																																																																																																																																																				      .marquee__track {
+																																																																																																																																																					          display: flex;
+																																																																																																																																																						      gap: 2.5rem;
+																																																																																																																																																						          width: max-content;
+																																																																																																																																																							      white-space: nowrap;
+																																																																																																																																																							          animation: marquee 45s linear infinite;
+																																																																																																																																																								      font-family: var(--font-display);
+																																																																																																																																																								          font-size: 1.75rem;
+																																																																																																																																																									      color: var(--muted);
+																																																																																																																																																									        }
+																																																																																																																																																										  .marquee__track span:nth-child(even) { color: var(--accent); }
+																																																																																																																																																										    .marquee:hover .marquee__track { animation-play-state: paused; }
+																																																																																																																																																										      @keyframes marquee {
+																																																																																																																																																											          from { transform: translateX(0); }
+																																																																																																																																																												      to   { transform: translateX(-50%); }
+																																																																																																																																																												        }
+
+																																																																																																																																																													  /* ---- Section ---- */
+																																																																																																																																																													  .section__head { text-align: center; margin-bottom: var(--space-12); }
+																																																																																																																																																													    .section__title {
+																																																																																																																																																														        font-family: var(--font-display);
+																																																																																																																																																															    font-size: var(--fs-h2);
+																																																																																																																																																															        line-height: 1.05;
+																																																																																																																																																																    letter-spacing: -0.02em;
+																																																																																																																																																																        font-weight: 400;
+																																																																																																																																																																	  }
+
+																																																																																																																																																																	    /* ---- Bento ---- */
+																																																																																																																																																																	    .bento {
+																																																																																																																																																																		        display: grid;
+																																																																																																																																																																			    grid-template-columns: repeat(3, 1fr);
+																																																																																																																																																																			        grid-auto-rows: minmax(200px, auto);
+																																																																																																																																																																				    gap: 1rem;
+																																																																																																																																																																				      }
+																																																																																																																																																																				        .bento__item {
+																																																																																																																																																																						    position: relative;
+																																																																																																																																																																						        overflow: hidden;
+																																																																																																																																																																							    background: var(--surface);
+																																																																																																																																																																							        border: 1px solid var(--border);
+																																																																																																																																																																								    border-radius: var(--radius-lg);
+																																																																																																																																																																								        padding: 1.75rem;
+																																																																																																																																																																									    display: flex;
+																																																																																																																																																																									        flex-direction: column;
+																																																																																																																																																																										    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+																																																																																																																																																																										      }
+																																																																																																																																																																										        .bento__item:hover {
+																																																																																																																																																																												    transform: translateY(-4px);
+																																																																																																																																																																												        border-color: var(--accent);
+																																																																																																																																																																													  }
+																																																																																																																																																																													    .bento__item--hero { grid-column: span 2; grid-row: span 2; }
+																																																																																																																																																																													      .bento__item--wide { grid-column: span 2; }
+
+																																																																																																																																																																													        .bento__icon {
+																																																																																																																																																																															    width: 2.75rem; height: 2.75rem;
+																																																																																																																																																																															        display: grid; place-items: center;
+																																																																																																																																																																																    border-radius: 12px;
+																																																																																																																																																																																        background: var(--accent-soft);
+																																																																																																																																																																																	    color: var(--accent);
+																																																																																																																																																																																	        font-size: 1.25rem;
+																																																																																																																																																																																		    margin-bottom: 1.25rem;
+																																																																																																																																																																																		      }
+																																																																																																																																																																																		        .bento__item h3 {
+																																																																																																																																																																																				    font-family: var(--font-display);
+																																																																																																																																																																																				        font-size: 1.6rem;
+																																																																																																																																																																																					    font-weight: 400;
+																																																																																																																																																																																					        margin-bottom: 0.5rem;
+																																																																																																																																																																																						  }
+																																																																																																																																																																																						    .bento__item p { color: var(--muted); font-size: var(--fs-sm); }
+
+																																																																																																																																																																																						      .bento__decor {
+																																																																																																																																																																																							          position: absolute;
+																																																																																																																																																																																								      right: -60px; bottom: -60px;
+																																																																																																																																																																																								          width: 220px; height: 220px;
+																																																																																																																																																																																									      border-radius: 50%;
+																																																																																																																																																																																									          background: radial-gradient(circle at 30% 30%, var(--accent), transparent 70%);
+																																																																																																																																																																																										      opacity: 0.18;
+																																																																																																																																																																																										          pointer-events: none;
+																																																																																																																																																																																											    }
+
+																																																																																																																																																																																											      /* ---- Process ---- */
+																																																																																																																																																																																											      .process {
+																																																																																																																																																																																												          display: grid;
+																																																																																																																																																																																													      grid-template-columns: repeat(3, 1fr);
+																																																																																																																																																																																													          gap: 2.5rem;
+																																																																																																																																																																																														      position: relative;
+																																																																																																																																																																																														        }
+																																																																																																																																																																																															  .process__step { position: relative; }
+																																																																																																																																																																																															    .process__num {
+																																																																																																																																																																																																        display: inline-block;
+																																																																																																																																																																																																	    font-family: var(--font-display);
+																																																																																																																																																																																																	        font-size: 1.75rem;
+																																																																																																																																																																																																		    line-height: 1;
+																																																																																																																																																																																																		        color: var(--accent);
+																																																																																																																																																																																																			    background: var(--surface);
+																																																																																																																																																																																																			        border: 1px solid var(--border);
+																																																																																																																																																																																																				    padding: 0.5rem 0.875rem;
+																																																																																																																																																																																																				        border-radius: 999px;
+																																																																																																																																																																																																					    margin-bottom: 1.25rem;
+																																																																																																																																																																																																					      }
+																																																																																																																																																																																																					        .process__step h3 {
+																																																																																																																																																																																																							    font-family: var(--font-display);
+																																																																																																																																																																																																							        font-size: 1.75rem;
+																																																																																																																																																																																																								    font-weight: 400;
+																																																																																																																																																																																																								        margin-bottom: 0.5rem;
+																																																																																																																																																																																																									  }
+																																																																																																																																																																																																									    .process__step p { color: var(--muted); font-size: var(--fs-sm); }
+
+																																																																																																																																																																																																									      /* ---- Quotes ---- */
+																																																																																																																																																																																																									      .quotes {
+																																																																																																																																																																																																										          display: grid;
+																																																																																																																																																																																																											      grid-template-columns: repeat(3, 1fr);
+																																																																																																																																																																																																											          gap: 1.25rem;
+																																																																																																																																																																																																												    }
+																																																																																																																																																																																																												      .quote {
+																																																																																																																																																																																																													          background: var(--surface);
+																																																																																																																																																																																																														      border: 1px solid var(--border);
+																																																																																																																																																																																																														          border-radius: var(--radius-lg);
+																																																																																																																																																																																																															      padding: 1.75rem;
+																																																																																																																																																																																																															          display: flex;
+																																																																																																																																																																																																																      flex-direction: column;
+																																																																																																																																																																																																																          gap: 1.75rem;
+																																																																																																																																																																																																																	    }
+																																																																																																																																																																																																																	      .quote blockquote {
+																																																																																																																																																																																																																		          flex: 1;
+																																																																																																																																																																																																																			      font-family: var(--font-display);
+																																																																																																																																																																																																																			          font-size: 1.3rem;
+																																																																																																																																																																																																																				      line-height: 1.35;
+																																																																																																																																																																																																																				        }
+																																																																																																																																																																																																																					  .quote figcaption {
+																																																																																																																																																																																																																						      display: flex;
+																																																																																																																																																																																																																						          align-items: center;
+																																																																																																																																																																																																																							      gap: 0.875rem;
+																																																																																																																																																																																																																							        }
+																																																																																																																																																																																																																								  .quote__avatar {
+																																																																																																																																																																																																																									      width: 2.5rem; height: 2.5rem;
+																																																																																																																																																																																																																									          display: grid; place-items: center;
+																																																																																																																																																																																																																										      border-radius: 50%;
+																																																																																																																																																																																																																										          background: var(--accent-soft);
+																																																																																																																																																																																																																											      color: var(--accent);
+																																																																																																																																																																																																																											          font-weight: 700;
+																																																																																																																																																																																																																												      font-size: 0.8125rem;
+																																																																																																																																																																																																																												        }
+																																																																																																																																																																																																																													  .quote figcaption strong { display: block; font-size: var(--fs-sm); }
+																																																																																																																																																																																																																													    .quote figcaption span { font-size: var(--fs-xs); color: var(--muted); }
+
+																																																																																																																																																																																																																													      /* ---- CTA ---- */
+																																																																																																																																																																																																																													      .cta__inner {
+																																																																																																																																																																																																																														          text-align: center;
+																																																																																																																																																																																																																															      padding: clamp(3.5rem, 8vw, 6rem) 2rem;
+																																																																																																																																																																																																																															          border-radius: var(--radius-xl);
+																																																																																																																																																																																																																																      background:
+																																																																																																																																																																																																																																            radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.2), transparent 50%),
+																																																																																																																																																																																																																																	          radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.15), transparent 50%),
+																																																																																																																																																																																																																																		        linear-gradient(135deg, var(--accent), #b23f14);
+																																																																																																																																																																																																																																			    color: #fff;
+																																																																																																																																																																																																																																			        position: relative;
+																																																																																																																																																																																																																																				    overflow: hidden;
+																																																																																																																																																																																																																																				      }
+																																																																																																																																																																																																																																				        .cta__inner h2 {
+																																																																																																																																																																																																																																						    font-family: var(--font-display);
+																																																																																																																																																																																																																																						        font-size: clamp(2.25rem, 5vw, 3.75rem);
+																																																																																																																																																																																																																																							    line-height: 1;
+																																																																																																																																																																																																																																							        font-weight: 400;
+																																																																																																																																																																																																																																								    margin-bottom: 1rem;
+																																																																																																																																																																																																																																								      }
+																																																																																																																																																																																																																																								        .cta__inner h2 em { color: #fff; opacity: 0.9; }
+																																																																																																																																																																																																																																									  .cta__inner p {
+																																																																																																																																																																																																																																										      opacity: 0.9;
+																																																																																																																																																																																																																																										          margin-bottom: 2rem;
+																																																																																																																																																																																																																																											      max-width: 32rem;
+																																																																																																																																																																																																																																											          margin-inline: auto;
+																																																																																																																																																																																																																																												    }
+
+																																																																																																																																																																																																																																												      /* ---- Footer ---- */
+																																																																																																																																																																																																																																												      .footer {
+																																																																																																																																																																																																																																													          border-top: 1px solid var(--border);
+																																																																																																																																																																																																																																														      padding: 3.5rem var(--pad-inline) 2rem;
+																																																																																																																																																																																																																																														        }
+																																																																																																																																																																																																																																															  .footer__inner {
+																																																																																																																																																																																																																																																      max-width: 75rem;
+																																																																																																																																																																																																																																																          margin: 0 auto 3rem;
+																																																																																																																																																																																																																																																	      display: grid;
+																																																																																																																																																																																																																																																	          grid-template-columns: 1fr 2fr;
+																																																																																																																																																																																																																																																		      gap: 3rem;
+																																																																																																																																																																																																																																																		        }
+																																																																																																																																																																																																																																																			  .footer__tag { color: var(--muted); font-size: var(--fs-sm); margin-top: 0.75rem; }
+																																																																																																																																																																																																																																																			    .footer__cols {
+																																																																																																																																																																																																																																																				        display: grid;
+																																																																																																																																																																																																																																																					    grid-template-columns: repeat(3, 1fr);
+																																																																																																																																																																																																																																																					        gap: 2rem;
+																																																																																																																																																																																																																																																						  }
+																																																																																																																																																																																																																																																						    .footer__cols h4 {
+																																																																																																																																																																																																																																																							        font-size: var(--fs-xs);
+																																																																																																																																																																																																																																																								    text-transform: uppercase;
+																																																																																																																																																																																																																																																								        letter-spacing: 0.12em;
+																																																																																																																																																																																																																																																									    color: var(--muted);
+																																																																																																																																																																																																																																																									        font-weight: 600;
+																																																																																																																																																																																																																																																										    margin-bottom: 1rem;
+																																																																																																																																																																																																																																																										      }
+																																																																																																																																																																																																																																																										        .footer__cols a {
+																																																																																																																																																																																																																																																												    display: block;
+																																																																																																																																																																																																																																																												        padding: 0.375rem 0;
+																																																																																																																																																																																																																																																													    font-size: var(--fs-sm);
+																																																																																																																																																																																																																																																													        transition: color 0.2s;
+																																																																																																																																																																																																																																																														  }
+																																																																																																																																																																																																																																																														    .footer__cols a:hover { color: var(--accent); }
+
+																																																																																																																																																																																																																																																														      .footer__bottom {
+																																																																																																																																																																																																																																																															          max-width: 75rem;
+																																																																																																																																																																																																																																																																      margin: 0 auto;
+																																																																																																																																																																																																																																																																          padding-top: 2rem;
+																																																																																																																																																																																																																																																																	      border-top: 1px solid var(--border);
+																																																																																																																																																																																																																																																																	          display: flex;
+																																																																																																																																																																																																																																																																		      justify-content: space-between;
+																																																																																																																																																																																																																																																																		          flex-wrap: wrap;
+																																																																																																																																																																																																																																																																			      gap: 0.75rem;
+																																																																																																																																																																																																																																																																			          font-size: var(--fs-xs);
+																																																																																																																																																																																																																																																																				      color: var(--muted);
+																																																																																																																																																																																																																																																																				        }
+																																																																																																																																																																																																																																																																				}
+
+																																																																																																																																																																																																																																																																				/* =========================================================
+																																																																																																																																																																																																																																																																				 *    LAYOUT
+																																																																																																																																																																																																																																																																				 *       ========================================================= */
+@layer layout {
+	  .hero {
+		      max-width: 87.5rem;
+		          margin-inline: auto;
+			      min-height: 100svh;
+			          padding: 9rem var(--pad-inline) 5rem;
+				      display: grid;
+				          grid-template-columns: 1.15fr 1fr;
+					      gap: 4rem;
+					          align-items: center;
+						    }
+						      .hero__title {
+							          font-family: var(--font-display);
+								      font-size: var(--fs-h1);
+								          line-height: 0.95;
+									      letter-spacing: -0.02em;
+									          font-weight: 400;
+										      margin-bottom: 1.5rem;
+										        }
+											  .hero__lead {
+												      font-size: var(--fs-lg);
+												          color: var(--muted);
+													      max-width: 32rem;
+													          margin-bottom: 2rem;
+														    }
+														      .hero__actions {
+															          display: flex;
+																      align-items: center;
+																          gap: 1.5rem;
+																	      flex-wrap: wrap;
+																	          margin-bottom: 2.5rem;
+																		    }
+																		      .hero__meta {
+																			          display: flex;
+																				      gap: 2.5rem;
+																				          flex-wrap: wrap;
+																					      padding-top: 2rem;
+																					          border-top: 1px solid var(--border);
+																						    }
+																						      .hero__meta div { display: flex; flex-direction: column; }
+																						        .hero__meta dt {
+																								    font-size: var(--fs-xs);
+																								        color: var(--muted);
+																									    text-transform: uppercase;
+																									        letter-spacing: 0.08em;
+																										    order: 2;
+																										        margin-top: 0.25rem;
+																											  }
+																											    .hero__meta dd {
+																												        font-family: var(--font-display);
+																													    font-size: 1.875rem;
+																													        line-height: 1;
+																														    order: 1;
+																														      }
+																														        .hero__meta dd span { color: var(--accent); }
+
+																															  .hero__visual {
+																																      position: relative;
+																																          width: 100%;
+																																	      max-width: 32rem;
+																																	          aspect-ratio: 1;
+																																		      justify-self: end;
+																																		        }
+																																			  .hero__composition { position: absolute; inset: 0; }
+
+																																			    .section {
+																																				        max-width: 75rem;
+																																					    margin-inline: auto;
+																																					        padding-block: var(--section-py);
+																																						    padding-inline: var(--pad-inline);
+																																						      }
+																																						        .section--alt { max-width: none; background: var(--surface-alt); }
+																																							  .section--alt > * { max-width: 75rem; margin-inline: auto; }
+
+																																							    .cta {
+																																								        max-width: 75rem;
+																																									    margin-inline: auto;
+																																									        padding: 0 var(--pad-inline) var(--section-py);
+																																										  }
+																																									  }
+
+																																									  /* =========================================================
+																																									   *    UTILITIES
+																																									   *       ========================================================= */
+@layer utilities {
+	  .reveal {
+		      opacity: 0;
+		          transform: translateY(24px);
+			      transition:
+			            opacity 0.7s var(--ease),
+				          transform 0.7s var(--ease);
+					      transition-delay: var(--reveal-delay, 0ms);
+					        }
+						  .reveal.visible {
+							      opacity: 1;
+							          transform: none;
+								    }
+							    }
+
+							    /* =========================================================
+							     *    RESPONSIVE
+							     *       ========================================================= */
+@media (max-width: 960px) {
+	  .nav__list,
+	    .nav__cta { display: none; }
+	      .burger { display: block; }
+
+	        .hero {
+			    grid-template-columns: 1fr;
+			        padding-top: 7rem;
+				    gap: 3rem;
+				      }
+				        .hero__visual {
+						    max-width: 24rem;
+						        justify-self: center;
+							  }
+
+							    .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
+							      .bento__item--hero,
+							        .bento__item--wide {
+									    grid-column: auto;
+									        grid-row: auto;
+										    min-height: 15rem;
+										      }
+
+										        .process { grid-template-columns: 1fr; }
+											  .quotes { grid-template-columns: 1fr; }
+											    .footer__inner { grid-template-columns: 1fr; }
+										    }
+
+										    @media (max-width: 560px) {
+											      .hero__meta { gap: 1.5rem; }
+											        .footer__cols { grid-template-columns: 1fr; gap: 1.5rem; }
+												  .marquee__track { font-size: 1.35rem; gap: 1.75rem; }
+											  }
+
+											  /* =========================================================
+											   *    MOTION & PRINT
+											   *       ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+	  *, *::before, *::after {
+		      animation-duration: 0.01ms !important;
+		          animation-iteration-count: 1 !important;
+			      transition-duration: 0.01ms !important;
+			          scroll-behavior: auto !important;
+				    }
+				      .reveal { opacity: 1; transform: none; }
+			      }
+
+			      @media print {
+				        .nav, .mobile-menu, .scroll-progress, .cursor, .marquee { display: none !important; }
+					  body { background: #fff; color: #000; }
+					    .reveal { opacity: 1; transform: none; }
+				    }

@@ -1,165 +1,139 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 	<head>
-		    <meta charset="UTF-8">
-		        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-			    <title>Aman | Linux & DevOps Admin</title>
+		  <meta charset="UTF-8" />
+		    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-			        <style>
-        body {
-		            margin: 0;
-			                font-family: Arial, sans-serif;
-					            background: #f1f5f9;
-						                color: #1e293b;
-								            text-align: center;
-									            }
+		      <title>Studio — Design that moves people</title>
+		        <meta name="description" content="An independent design studio crafting brands, websites and digital products for companies that refuse to blend in." />
+			  <meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)" />
+			    <meta name="theme-color" content="#0f0e0c" media="(prefers-color-scheme: dark)" />
 
-	        header {
-			            background: #0f172a;
-				                color: white;
-						            padding: 25px;
-							            }
+			      <!-- Open Graph -->
+			        <meta property="og:type" content="website" />
+				  <meta property="og:title" content="Studio — Design that moves people" />
+				    <meta property="og:description" content="Brands, websites and digital products for companies that refuse to blend in." />
 
-		        header h1 {
-				            margin: 0;
-					                color: #38bdf8;
-							        }
+				      <!-- Fonts (preloaded for faster first paint) -->
+				        <link rel="preconnect" href="https://fonts.googleapis.com" />
+					  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+					    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" />
+					      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" />
 
-			        nav {
-					            background: #1e293b;
-						                padding: 12px;
-								        }
-
-				        nav a {
-						            color: white;
-							                text-decoration: none;
-									            margin: 0 12px;
-										            }
-
-					        .hero {
-							            padding: 50px 20px;
-								            }
-
-						        .hero h2 {
-								            font-size: 30px;
-									            }
-
-							        .hero p {
-									            color: #475569;
-										                line-height: 1.7;
-												        }
-
-								        .services {
-										            display: flex;
-											                flex-wrap: wrap;
-													            justify-content: center;
-														                gap: 20px;
-																            padding: 20px;
-																	            }
-
-									        .card {
-											            background: white;
-												                width: 200px;
-														            padding: 20px;
-															                border-radius: 10px;
-																	            box-shadow: 0 3px 10px #cbd5e1;
-																		            }
-
-										        .card h3 {
-												            color: #0284c7;
-													            }
-
-											        button {
-													            background: #0284c7;
-														                color: white;
-																            padding: 12px 25px;
-																	                border: none;
-																			            border-radius: 5px;
-																				                cursor: pointer;
-																						        }
-
-												        button:hover {
-														            background: #0369a1;
-															            }
-
-													        footer {
-															            background: #0f172a;
-																                color: white;
-																		            padding: 15px;
-																			                margin-top: 30px;
-																					        }
-														    </style>
+					        <link rel="stylesheet" href="style.css" />
+						  <script src="script.js" defer></script>
 	</head>
 
 	<body>
+		  <a href="#main" class="skip-link">Skip to content</a>
 
-		    <header>
-			            <h1>Aman | IT & DevOps</h1>
-				            <p>Linux System Administrator | Cloud & DevOps Enthusiast</p>
-					        </header>
+		    <!-- Scroll progress bar -->
+		      <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
-						    <nav>
-							            <a href="#home">Home</a>
-								            <a href="#skills">Skills</a>
-									            <a href="#about">About</a>
-										        </nav>
+		        <!-- Custom cursor (desktop only, hidden by default) -->
+			  <div class="cursor" aria-hidden="true"></div>
 
-											    <section class="hero" id="home">
-												            <h2>Welcome to My Website!</h2>
-													            <p>
-														                I work with Linux servers, cloud infrastructure,
-																            web hosting and DevOps technologies.
-																	            </p>
-																		            <button onclick="showMessage()">Test JavaScript</button>
-																			            <p id="message"></p>
-																				        </section>
+			    <!-- ============ NAV ============ -->
+			      <header class="nav" id="nav">
+				          <a href="#top" class="nav__logo" aria-label="Studio home">
+						        Studio<span class="dot">.</span>
+							    </a>
 
-																					    <section id="skills">
-																						            <h2>My Technical Skills</h2>
+							        <nav class="nav__menu" aria-label="Primary">
+									      <ul class="nav__list">
+										              <li><a href="#work">Work</a></li>
+											              <li><a href="#process">Process</a></li>
+												              <li><a href="#voices">Voices</a></li>
+													            </ul>
+														        </nav>
 
-																							            <div class="services">
-																									                <div class="card">
-																												                <h3>Linux</h3>
-																														                <p>Ubuntu, RHEL, Rocky Linux</p>
-																																            </div>
+															    <div class="nav__actions">
+																          <button
+																			          class="icon-btn"
+																				          id="themeToggle"
+																					          aria-label="Toggle dark mode"
+																						          aria-pressed="false"
+																							        >
+																								        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+																										          <circle cx="12" cy="12" r="4" />
+																											            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+																												            </svg>
+																		          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+																				            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+																					            </svg>
+																						          </button>
 
-																																	                <div class="card">
-																																				                <h3>Web Servers</h3>
-																																						                <p>Apache, Nginx, cPanel</p>
-																																								            </div>
+																							        <a href="#contact" class="btn btn--sm nav__cta">Let's talk</a>
 
-																																									                <div class="card">
-																																												                <h3>Cloud & DevOps</h3>
-																																														                <p>AWS, Docker, Kubernetes, Git</p>
-																																																            </div>
+																								      <button
+																										              class="burger"
+																											              id="burger"
+																												              aria-label="Open menu"
+																													              aria-expanded="false"
+																														              aria-controls="mobileMenu"
+																															            >
+																																            <span></span><span></span>
+																																	          </button>
+																																		      </div>
+																																		        </header>
 
-																																																	                <div class="card">
-																																																				                <h3>Databases</h3>
-																																																						                <p>MySQL, Percona, Replication</p>
-																																																								            </div>
-																																																									            </div>
-																																																										        </section>
+																																			  <!-- ============ MOBILE MENU ============ -->
+																																			    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Mobile navigation" hidden>
+																																				        <ul>
+																																						      <li><a href="#work">Work</a></li>
+																																						            <li><a href="#process">Process</a></li>
+																																							          <li><a href="#voices">Voices</a></li>
+																																								        <li><a href="#contact">Contact</a></li>
+																																									    </ul>
+																																									        <div class="mobile-menu__foot">
+																																											      <a href="mailto:hello@studio.com">hello@studio.com</a>
+																																											          </div>
+																																												    </div>
 
-																																																											    <section id="about" class="hero">
-																																																												            <h2>About Me</h2>
-																																																													            <p>
-																																																														                I enjoy managing Linux servers, deploying websites,
-																																																																            troubleshooting infrastructure and learning new technologies.
-																																																																	            </p>
-																																																																		        </section>
+																																												      <main id="main">
+																																													          <!-- ============ HERO ============ -->
+																																														      <section class="hero" id="top">
+																																															            <div class="hero__content">
+																																																	            <span class="eyebrow">
+																																																			              <span class="dot-indicator"></span>
+																																																				                Independent studio · available for new work
+																																																						        </span>
+																																																							        <h1 class="hero__title">
+																																																									          Design that<br />
+																																																										            <em>moves people.</em>
+																																																											            </h1>
+																																																												            <p class="hero__lead">
+																																																													              We're a small team crafting brands, websites and products for
+																																																														      ver</h3>
+																																																													                <p>We build, test and hand off. Then we stick around — launching is where the real work begins.</p>
+																																																															        </li>
+																																																																      </ol>
+																																																																          </section>
 
-																																																																			    <footer>
-																																																																				            <p>&copy; 2026 Aman | Linux & DevOps Admin</p>
-																																																																					        </footer>
+																																																																	      <!-- ============ VOICES ============ -->
+																																																																	          <section class="section" id="voices">
+																																																																			        <header class="section__head reveal">
+																																																																					        <span class="eyebrow">Voices</span>
+																																																																						        <h2 class="section__title">Kind words from<br /><em>great people.</em></h2>
+																																																																							      </header>
 
-																																																																						    <script>
-																																																																							            function showMessage() {
-																																																																									                document.getElementById("message").textContent =
-																																																																										                    "Success! JavaScript is working correctly.";
-																																																																									            }
-																																																																								        </script>
-
-	</body>
-</html>
-
+																																																																							            <div class="quotes">
+																																																																									            <figure class="quote reveal">
+																																																																											              <blockquote>Working with Studio was effortless. They understood our brand better than we did after a week.</blockquote>
+																																																																												                <figcaption>
+																																																																															            <div class="quote__avatar" aria-hidden="true">AR</div>
+																																																																																                <div>
+																																																																																			              <strong>Ana Reyes</strong>
+																																																																																				                    <span>Founder, Kite</span>
+																																																																																						                </div>
+																																																																																								          </figcaption>
+																																																																																									          </figure>
+																																																																																										          <figure class="quote reveal">
+																																																																																												            <blockquote>The new site tripled our signups in two months. More importantly, it finally looks like us.</blockquote>
+																																																																																													              <figcaption>
+																																																																																															                  <div class="quote__avatar" aria-hidden="true">MC</div>
+																																																																																																	              <div>
+																																																																																																			                    <strong>Marcus Chen</strong>
+																																																																																																					                  <span>CEO, Quartz</span>
+																																																																																																							              </div>
+																																																																																																								        
