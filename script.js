@@ -1,85 +1,97 @@
-// ========================================
-// //   NOVA — Interactive Scripts
-// // ========================================
+/* =========================================================
+ *    STUDIO — Interactive Scripts
+ *       ========================================================= */
+
+// ---------- Theme toggle ----------
+// const root = document.documentElement;
+// const themeBtn = document.getElementById("themeToggle");
 //
-// // -------- 1. Scroll Reveal Animation --------
-// const revealObserver = new IntersectionObserver(
-//   (entries) => {
-//       entries.forEach((entry) => {
-//             if (entry.isIntersecting) {
-//                     entry.target.classList.add('visible');
-//                             revealObserver.unobserve(entry.target); // ek baar hi animate karo
-//                                   }
-//                                       });
-//                                         },
-//                                           { threshold: 0.15 }
-//                                           );
+// const savedTheme = localStorage.getItem("theme");
+// if (savedTheme) {
+//   root.setAttribute("data-theme", savedTheme);
+//   } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+//     root.setAttribute("data-theme", "dark");
+//     }
 //
-//                                           document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+//     themeBtn.addEventListener("click", () => {
+//       const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+//         root.setAttribute("data-theme", next);
+//           localStorage.setItem("theme", next);
+//           });
 //
-//                                           // -------- 2. Animated Counter for Stats --------
-//                                           const counters = document.querySelectorAll('.num[data-target]');
+//           // ---------- Mobile menu ----------
+//           const burger = document.getElementById("burger");
+//           const mobileMenu = document.getElementById("mobileMenu");
 //
-//                                           const counterObserver = new IntersectionObserver(
-//                                             (entries) => {
-//                                                 entries.forEach((entry) => {
-//                                                       if (!entry.isIntersecting) return;
+//           function setMenu(open) {
+//             mobileMenu.classList.toggle("open", open);
+//               burger.classList.toggle("open", open);
+//                 burger.setAttribute("aria-expanded", open);
+//                   mobileMenu.setAttribute("aria-hidden", !open);
+//                     document.body.style.overflow = open ? "hidden" : "";
+//                     }
 //
-//                                                             const el = entry.target;
-//                                                                   const target = Number(el.dataset.target);
-//                                                                         const suffix = el.dataset.suffix || '';
-//                                                                               const duration = 1200; // total animation time in ms
-//                                                                                     const startTime = performance.now();
+//                     burger.addEventListener("click", () => {
+//                       setMenu(!mobileMenu.classList.contains("open"));
+//                       });
 //
-//                                                                                           function updateCounter(now) {
-//                                                                                                   const elapsed = now - startTime;
-//                                                                                                           const progress = Math.min(elapsed / duration, 1);
-//                                                                                                                   // ease-out effect
-//                                                                                                                           const eased = 1 - Math.pow(1 - progress, 3);
-//                                                                                                                                   const current = Math.floor(eased * target);
+//                       mobileMenu.querySelectorAll("a").forEach((a) =>
+//                         a.addEventListener("click", () => setMenu(false))
+//                         );
 //
-//                                                                                                                                           el.textContent = current + suffix;
+//                         document.addEventListener("keydown", (e) => {
+//                           if (e.key === "Escape" && mobileMenu.classList.contains("open")) {
+//                               setMenu(false);
+//                                 }
+//                                 });
 //
-//                                                                                                                                                   if (progress < 1) {
-//                                                                                                                                                             requestAnimationFrame(updateCounter);
-//                                                                                                                                                                     } else {
-//                                                                                                                                                                               el.textContent = target + suffix;
-//                                                                                                                                                                                       }
-//                                                                                                                                                                                             }
+//                                 // ---------- Nav shadow on scroll ----------
+//                                 const nav = document.getElementById("nav");
+//                                 const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 20);
+//                                 onScroll();
+//                                 window.addEventListener("scroll", onScroll, { passive: true });
 //
-//                                                                                                                                                                                                   requestAnimationFrame(updateCounter);
-//                                                                                                                                                                                                         counterObserver.unobserve(el);
-//                                                                                                                                                                                                             });
-//                                                                                                                                                                                                               },
-//                                                                                                                                                                                                                 { threshold: 0.5 }
-//                                                                                                                                                                                                                 );
+//                                 // ---------- Reveal on scroll ----------
+//                                 const revealObserver = new IntersectionObserver(
+//                                   (entries) => {
+//                                       entries.forEach((entry) => {
+//                                             if (entry.isIntersecting) {
+//                                                     entry.target.classList.add("visible");
+//                                                             revealObserver.unobserve(entry.target);
+//                                                                   }
+//                                                                       });
+//                                                                         },
+//                                                                           { threshold: 0.12 }
+//                                                                           );
 //
-//                                                                                                                                                                                                                 counters.forEach((counter) => counterObserver.observe(counter));
+//                                                                           document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 //
-//                                                                                                                                                                                                                 // -------- 3. Navbar Shadow on Scroll --------
-//                                                                                                                                                                                                                 const navbar = document.querySelector('nav');
+//                                                                           // ---------- Active nav link on scroll ----------
+//                                                                           const sectionIds = ["work", "process", "voices"];
+//                                                                           const sections = sectionIds
+//                                                                             .map((id) => document.getElementById(id))
+//                                                                               .filter(Boolean);
+//                                                                               const navLinks = document.querySelectorAll(".nav__list a");
 //
-//                                                                                                                                                                                                                 window.addEventListener('scroll', () => {
-//                                                                                                                                                                                                                   if (window.scrollY > 50) {
-//                                                                                                                                                                                                                       navbar.style.boxShadow = '0 8px 30px rgba(124, 92, 255, 0.2)';
-//                                                                                                                                                                                                                         } else {
-//                                                                                                                                                                                                                             navbar.style.boxShadow = 'none';
-//                                                                                                                                                                                                                               }
-//                                                                                                                                                                                                                               });
+//                                                                               const sectionObserver = new IntersectionObserver(
+//                                                                                 (entries) => {
+//                                                                                     entries.forEach((entry) => {
+//                                                                                           if (!entry.isIntersecting) return;
+//                                                                                                 navLinks.forEach((link) => {
+//                                                                                                         link.classList.toggle(
+//                                                                                                                   "active",
+//                                                                                                                             link.getAttribute("href") === "#" + entry.target.id
+//                                                                                                                                     );
+//                                                                                                                                           });
+//                                                                                                                                               });
+//                                                                                                                                                 },
+//                                                                                                                                                   { rootMargin: "-40% 0px -55% 0px" }
+//                                                                                                                                                   );
 //
-//                                                                                                                                                                                                                               // -------- 4. Smooth Scroll for Anchor Links --------
-//                                                                                                                                                                                                                               document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-//                                                                                                                                                                                                                                 anchor.addEventListener('click', function (e) {
-//                                                                                                                                                                                                                                     const target = document.querySelector(this.getAttribute('href'));
-//                                                                                                                                                                                                                                         if (target) {
-//                                                                                                                                                                                                                                               e.preventDefault();
-//                                                                                                                                                                                                                                                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//                                                                                                                                                                                                                                                         }
-//                                                                                                                                                                                                                                                           });
-//                                                                                                                                                                                                                                                           });
+//                                                                                                                                                   sections.forEach((s) => sectionObserver.observe(s));
 //
-//                                                                                                                                                                                                                                                           // -------- 5. Console Message --------
-//                                                                                                                                                                                                                                                           console.log(
-//                                                                                                                                                                                                                                                             '%c🚀 Nova Studio loaded successfully!',
-//                                                                                                                                                                                                                                                               'color:#7c5cff; font-size:14px; font-weight:bold;'
-//                                                                                                                                                                                                                                                               );
+//                                                                                                                                                   // ---------- Console signature ----------
+//                                                                                                                                                   console.log(
+//                                                                                                                                                     "%c✦ Studio loaded",
+//                                                                                                                                                       "color:#e85d2a; font-size:14px; font-weight:bold;"
+//                                                                                                                                                       );

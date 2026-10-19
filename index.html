@@ -1,106 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 	<head>
 		  <meta charset="UTF-8" />
 		    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		      <title>Nova — Creative Studio</title>
-		        <link rel="stylesheet" href="style.css" />
+		      <meta name="description" content="Studio — an independent design studio crafting brands, websites and digital products." />
+		        <title>Studio — Design that moves people</title>
+
+			  <link rel="preconnect" href="https://fonts.googleapis.com" />
+			    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+			      <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+			        <link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
+		  <a href="#main" class="skip-link">Skip to content</a>
 
-		  <!-- Background Blobs -->
-		    <div class="blob one"></div>
-		      <div class="blob two"></div>
+		    <!-- ===== NAV ===== -->
+		      <header class="nav" id="nav">
+			          <a href="#" class="nav__logo">Studio<span class="dot">.</span></a>
 
-		        <!-- Navbar -->
-			  <nav>
-				      <div class="logo">NOVA</div>
-				          <ul>
-						        <li><a href="#features">Features</a></li>
-							      <li><a href="#stats">Stats</a></li>
-							            <li><a href="#contact">Contact</a></li>
-								        </ul>
-									  </nav>
+				      <nav class="nav__menu" aria-label="Primary">
+					            <ul class="nav__list">
+							            <li><a href="#work">Work</a></li>
+								            <li><a href="#process">Process</a></li>
+									            <li><a href="#voices">Voices</a></li>
+										          </ul>
+											      </nav>
 
-									    <!-- Hero -->
-									      <header>
-										          <div class="badge">✨ Design that speaks</div>
-											      <h1>Create something <span>truly beautiful</span> today</h1>
-											          <p>We craft stunning digital experiences that blend creativity, technology and purpose — into one seamless journey.</p>
-												      <div class="btn-group">
-													            <a href="#features" class="btn primary">Get Started →</a>
-														          <a href="#stats" class="btn ghost">Learn More</a>
-															      </div>
-															        </header>
+											          <div class="nav__actions">
+													        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">
+															        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+																	          <circle cx="12" cy="12" r="4"/>
+																		            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+																			            </svg>
+																				            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+																						              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+																							              </svg>
+																								            </button>
 
-																  <!-- Features -->
-																    <section id="features">
-																	        <h2 class="section-title reveal">Why choose us?</h2>
-																		    <p class="section-sub reveal">Everything you need to build a memorable brand, all in one place.</p>
+																									          <a href="#contact" class="btn btn--sm nav__cta">Let's talk</a>
 
-																		        <div class="grid">
-																				      <div class="card reveal">
-																					              <div class="icon">🚀</div>
-																						              <h3>Lightning Fast</h3>
-																							              <p>Optimized performance and smooth animations that make every interaction feel instant.</p>
-																								            </div>
-																									          <div class="card reveal">
-																											          <div class="icon">🎨</div>
-																												          <h3>Pixel Perfect</h3>
-																													          <p>Every detail carefully designed to deliver a clean, elegant and modern visual experience.</p>
-																														        </div>
-																															      <div class="card reveal">
-																																              <div class="icon">📱</div>
-																																	              <h3>Fully Responsive</h3>
-																																		              <p>Looks flawless on desktop, tablet, and mobile — no matter where your visitors come from.</p>
-																																			            </div>
-																																				          <div class="card reveal">
-																																						          <div class="icon">⚡</div>
-																																							          <h3>Modern Tech</h3>
-																																								          <p>Built with the latest web standards for security, accessibility and long-term reliability.</p>
-																																									        </div>
-																																										      <div class="card reveal">
-																																											              <div class="icon">💡</div>
-																																												              <h3>Creative Ideas</h3>
-																																													              <p>Fresh, bold concepts that help your brand stand out from the crowd and leave a mark.</p>
-																																														            </div>
-																																															          <div class="card reveal">
-																																																	          <div class="icon">🤝</div>
-																																																		          <h3>24/7 Support</h3>
-																																																			          <p>Our team is always here to help — questions, tweaks, or full redesigns, we've got you.</p>
-																																																				        </div>
-																																																					    </div>
-																																																					      </section>
+																										        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+																												        <span></span><span></span>
+																													      </button>
+																													          </div>
+																														    </header>
 
-																																																					        <!-- Stats -->
-																																																						  <section id="stats">
-																																																							      <div class="stats reveal">
-																																																								            <div>
-																																																										            <div class="num" data-target="150" data-suffix="+">0+</div>
-																																																											            <div class="label">Projects Done</div>
-																																																												          </div>
-																																																													        <div>
-																																																															        <div class="num" data-target="98" data-suffix="%">0%</div>
-																																																																        <div class="label">Happy Clients</div>
-																																																																	      </div>
-																																																																	            <div>
-																																																																			            <div class="num" data-target="12" data-suffix="+">0+</div>
-																																																																				            <div class="label">Awards Won</div>
-																																																																					          </div>
-																																																																						        <div>
-																																																																								        <div class="num" data-target="8" data-suffix="+">0+</div>
-																																																																									        <div class="label">Years Experience</div>
-																																																																										      </div>
-																																																																										          </div>
-																																																																											    </section>
+																														      <!-- ===== MOBILE MENU ===== -->
+																														        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+																																    <ul>
+																																	          <li><a href="#work">Work</a></li>
+																																		        <li><a href="#process">Process</a></li>
+																																			      <li><a href="#voices">Voices</a></li>
+																																			            <li><a href="#contact">Contact</a></li>
+																																				        </ul>
+																																					  </div>
 
-																																																																											      <!-- Footer -->
-																																																																											        <footer id="contact">
-																																																																													    <div class="logo">NOVA</div>
-																																																																													        <p>Crafting beautiful digital experiences since 2016.</p>
-																																																																														    <p class="copyright">© 2025 Nova Studio. All rights reserved.</p>
-																																																																														      </footer>
+																																					    <main id="main">
+																																						        <!-- ===== HERO ===== -->
+																																							    <section class="hero">
+																																								          <div class="hero__content">
+																																										          <span class="eyebrow">Independent studio · since 2016</span>
+																																											          <h1 class="hero__title">
+																																													            Design that<br />
+																																														              <em>moves people.</em>
+																																															              </h1>
+																																																              <p class="hero__lead">
+																																																	                We're a small team crafting brands, websites and products for companies that refuse to blend in.
+																																																			        </p>
+																																																				        <div class="hero__actions">
+																																																						          <a href="#work" class="btn">View our work</a>
+																																																							            <a href="#contact" class="link">Start a project <span>→</span></a>
+																																																								            </div>
+																																																									            <div class="hero__meta">
+																																																											              <div><strong>150+</strong><span>Projects shipped</span></div>
+																																																												                <div><strong>98%</strong><span>Client retention</span></div>
+																																																														          <div><strong>12</strong><span>Design awards</span></div>
+																																																															          </div>
+																																																																        </div>
 
-																																																																														        <script src="script.js"></script>
-	</body>
-</html>
+																																																																	      <div class="hero__visual" aria-hidden="true">
+																																																																		              <div class="visual-panel">
+																																																																				                <div class="visual-shape"></div>
+																																																																						          <div class="visual-grid"></div>
+																																																																							          </div>
+																																																																								          <div class="float-card float-card--a">
+																																																																										            <div class="float-card__label">★★★★★</div>
+																																																																											              <div class="float-card__title">"Absolutely brilliant."</div>
+																																																																												              </div>
+																																																																													              <div class="float-card float-card--b">
+																																																																															                <div class="float-card__stat">12k+</div>
+																																																																																	          <div class="float-card__label">Happy users</div>
+																																																																																		          </div>
+																																																																																			        </div>
+																																																																																				    </section>
+
+																																																																																				        <!-- ===== MARQUEE ===== -->
+																																																																																					    <section class="marquee" aria-label="Trusted by">
+																																																																																						          <div class="marquee__track">
+																																																																																								          <span>Acme</span><span>·</span><span>Bolt</span><span>·</span><span>Kite</span><span>·</span>
+																																																																																									          <span>Nova</span><span>·</span><span>Quartz</span><span>·</span><span>Lumen</span><span>
